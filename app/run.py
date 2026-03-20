@@ -1,5 +1,6 @@
 from flask import Flask, jsonify
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import text
 import os
 
 app = Flask(__name__)
@@ -20,7 +21,7 @@ def db_check():
 	"""
 	try:
 		# Lightweight check: run a simple SELECT 1
-		result = db.session.execute("SELECT 1").scalar()
+		result = db.session.execute(text("SELECT 1")).scalar()
 		ok = bool(result)
 		return jsonify(ok), (200 if ok else 500)
 	except Exception:
